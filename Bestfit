@@ -1,0 +1,77 @@
+INPUT:
+
+#include<stdio.h>
+int main()
+{
+int fragment[20],b[20],p[20],i,j,nb,np,temp,lowest=9999;
+static int barray[20],parray[20];
+printf("\n\t\t\tMemory Management Scheme - Best Fit");
+printf("\nEnter the number of blocks:");
+scanf("%d",&nb);
+printf("Enter the number of processes:");
+scanf("%d",&np);
+printf("\nEnter the size of the blocks:-\n");
+for(i=1;i<=nb;i++)
+    {
+printf("Block no.%d:",i);
+        scanf("%d",&b[i]);
+    }
+printf("\nEnter the size of the processes :-\n");
+for(i=1;i<=np;i++)
+    {
+        printf("Process no.%d:",i);
+        scanf("%d",&p[i]);
+    }
+for(i=1;i<=np;i++)
+{
+for(j=1;j<=nb;j++)
+{
+if(barray[j]!=1)
+{
+temp=b[j]-p[i];
+if(temp>=0)
+if(lowest>temp)
+{
+parray[i]=j;
+lowest=temp;
+}
+}
+}
+fragment[i]=lowest;
+barray[parray[i]]=1;
+lowest=10000;
+}
+printf("\nProcess_no\tProcess_size\tBlock_no\tBlock_size\tFragment");
+for(i=1;i<=np && parray[i]!=0;i++)
+printf("\n%d\t\t%d\t\t%d\t\t%d\t\t%d",i,p[i],parray[i],b[parray[i]],fragment[i]);
+return 0;
+}
+
+OUTPUT:
+
+                        Memory Management Scheme - Best Fit
+Enter the number of blocks:6
+Enter the number of processes:4
+
+Enter the size of the blocks:-
+Block no.1:200
+Block no.2:400
+Block no.3:600
+Block no.4:500
+Block no.5:200
+Block no.6:250
+
+Enter the size of the processes :-
+Process no.1:357
+Process no.2:210
+Process no.3:468
+Process no.4:491
+
+Process_no      Process_size    Block_no        Block_size      Fragment
+1               357             2               400             43
+2               210             6               250             40
+3               468             4               500             32
+4               491             3               600             109
+--------------------------------
+Process exited after 47.28 seconds with return value 0
+Press any key to continue . . .
